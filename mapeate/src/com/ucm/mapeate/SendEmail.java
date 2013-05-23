@@ -45,27 +45,19 @@ public class SendEmail extends HttpServlet {
         
         PersistenceManager pm = PMF.get().getPersistenceManager();
         
-        Query query = pm.newQuery(Usuarios.class);
-        query.setFilter("(email == myParam)");
-        query.declareParameters("String myParam");
-        Collection col = (Collection) query.execute(email);
-        Iterator it = col.iterator();
-        if (it.hasNext()) {
-            //there is a result
-            while(it.hasNext()) {
-                Usuarios u = (Usuarios) it.next();
+        Query query = pm.newQuery(Usuarios.class,
+                "email == '"+email+"'");
+        
+        try {
+            List<Usuarios> results = (List<Usuarios>) query.execute();
+            if (!results.isEmpty()) {
+                for (Usuarios u : results) {
                 
                 String nombre = u.getName();
                 
                 String mail = u.getEmail();
                 
                 if (mail.equalsIgnoreCase(email)){
-
-                    /*try {
-                    	pm.deletePersistent(u);
-                    } finally {
-                        pm.close();
-                    }*/
 
                 	//generamos clave aleatoria
                 	int clave = (int) Math.floor(Math.random()*(0-9999+1)+9999);  // Valor entre 0 y 9999, ambos incluidos.
@@ -76,23 +68,26 @@ public class SendEmail extends HttpServlet {
                 	u.setPsw(md5);
                 	
                 	envia(email,nombre,cadena);
-                	resp.sendRedirect("/mensajesFallo/mensajeEnviado.html");
+                	resp.sendRedirect("/mensajesAcierto/mensajeEnviado.html");
                 }
                 else{
                 	resp.sendRedirect("/mensajesFallo/emailInvalido.html");
                 }
             }
-        } else {
-            //no persistent object found
-        	resp.sendRedirect("/mensajesFallo/emailInvalido.html");
+	        } else {
+	            //no persistent object found
+	        	resp.sendRedirect("/mensajesFallo/emailInvalido.html");
+	        }
+        }catch (Exception e){
+        	resp.sendRedirect("/mensajesFallo/falloBaseDatos.html");
+        }finally{
+        	query.closeAll();
+        	pm.close();
         }
-        query.closeAll();
-
-        pm.close();
         
     }
     
-    
+    //envia el mail con la clave aleatoria generada
     public void envia(String email,String usuario, String clave) throws UnsupportedEncodingException{
     	
     	

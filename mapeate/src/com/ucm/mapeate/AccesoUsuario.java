@@ -77,44 +77,6 @@ public class AccesoUsuario extends HttpServlet {
             query.closeAll();
             pm.close();
         }
-        
-       /* Query query = pm.newQuery(Usuarios.class);
-        query.setFilter("(name == myParam)");
-        query.declareParameters("String myParam");
-        Collection col = (Collection) query.execute(nombre);
-        Iterator it = col.iterator();
-        if (it.hasNext()) {
-            //there is a result
-            while(it.hasNext()) {
-                Usuarios u = (Usuarios) it.next();
-                
-                String name = u.getName();
-                
-                String ps = u.getPsw();
-                //se compara con el md5 de la pass almacenada en la BD
-                String md5 = md5(psw);                
-                
-                if (ps.equalsIgnoreCase(md5)){
-                	
-                	//creo la cookie con el usuario
-                	Cookie cookie = new Cookie("username",name);
-                	cookie.setValue(name);
-                	cookie.setComment("probando uso cookies en servlet");
-                	resp.addCookie(cookie);
-                	
-                	resp.sendRedirect("/mensajesFallo/invalidPass.html");
-                
-                }
-                else{
-                	resp.sendRedirect("/mensajesFallo/invalidPass.html");                
-                }
-            }
-        } else {
-        	resp.sendRedirect("/php/visit.php");
-        }
-        query.closeAll();
-
-        pm.close();*/
 
     }
     

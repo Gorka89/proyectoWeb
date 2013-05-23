@@ -92,5 +92,23 @@
         <url-pattern>/coordenada</url-pattern>
     </servlet-mapping>
     
+     <!-- QUERCUS -->
+  
+  	  <servlet>
+    <servlet-name>Quercus Servlet</servlet-name>
+    <servlet-class>com.caucho.quercus.servlet.QuercusServlet</servlet-class>
+    
+      <init-param>
+		<param-name>ini-file</param-name>
+		<param-value>WEB-INF/php.ini</param-value>
+	  </init-param>
+
+  	</servlet>
+
+  <servlet-mapping>
+    <servlet-name>Quercus Servlet</servlet-name>
+    <url-pattern>*.php</url-pattern>
+  </servlet-mapping>
+    
 
 </web-app>
