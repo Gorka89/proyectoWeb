@@ -1,12 +1,11 @@
 package com.ucm.mapeate;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.logging.Logger;
 import javax.jdo.PersistenceManager;
 import javax.servlet.http.*;
+
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
@@ -29,7 +28,7 @@ public class AlmacenamientoUsuarios extends HttpServlet {
         String psw = req.getParameter("password");
         String email = req.getParameter("email");
         
-        String md5 = md5(psw);
+        String md5 = md5(psw,resp);
         
         Usuarios usuario = new Usuarios(user,nombre,md5,email);
                  
@@ -37,27 +36,34 @@ public class AlmacenamientoUsuarios extends HttpServlet {
         PersistenceManager pm = PMF.get().getPersistenceManager();
         try {
             pm.makePersistent(usuario);
+        }catch(Exception e){
+        	resp.sendRedirect("/mensajesFallo/falloBaseDatos.html");
         } finally {
             pm.close();
         }
         
-        resp.setContentType("text/html");
-        PrintWriter out = resp.getWriter();
-        out.println("<html>");
-        out.println("<head><title>Prueba de rastreo de usuario</title></head>");
-        out.println("<body>");
-        out.println("<h1>el usuario se ha registrado con exito</h1>");
-        out.println("</body></html>");
+        //Si llega aqui todo ha ido bien, se crea la cookie
+        //y se redirige a un html que indica el registro exitoso
+        //y este a su vez redirige al main privado
         
-        //resp.sendRedirect("login.html");
+        //creo la cookie con el usuario
+    	Cookie cookie = new Cookie("username",nombre);
+    	cookie.setValue(nombre);
+    	cookie.setComment("cookies username");
+    	resp.addCookie(cookie);
+        
+        resp.sendRedirect("/mensajesAcierto/registroOK.html");
     }
     
     /**
      * Funcion encargada de encriptar la password
      * @param s
      * @return
+     * @throws IOException 
      */
-    private static String md5(String s) { try {
+    private static String md5(String s,HttpServletResponse resp) throws IOException { 
+    
+    try {
         
         // Create MD5 Hash
         MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
@@ -71,7 +77,7 @@ public class AlmacenamientoUsuarios extends HttpServlet {
         return hexString.toString();
  
      } catch (NoSuchAlgorithmException e) {
-         e.printStackTrace();
+    	 resp.sendRedirect("/mensajesFallo/invalidPass.html");
      }
      return "";
  

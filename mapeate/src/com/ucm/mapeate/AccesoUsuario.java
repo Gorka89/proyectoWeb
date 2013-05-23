@@ -32,7 +32,6 @@ public class AccesoUsuario extends HttpServlet {
                 throws IOException {
         UserService userService = UserServiceFactory.getUserService();
         User user = userService.getCurrentUser();
-        //RequestDispatcher dispatcher;
         
         String nombre = req.getParameter("usernameLogin");
         String psw = req.getParameter("passwordLogin");
@@ -51,14 +50,14 @@ public class AccesoUsuario extends HttpServlet {
                     
                     String ps = u.getPsw();
                     //se compara con el md5 de la pass almacenada en la BD
-                    String md5 = md5(psw);                
+                    String md5 = md5(psw,resp);                
                     
                     if (ps.equalsIgnoreCase(md5)){
                     	
                     	//creo la cookie con el usuario
                     	Cookie cookie = new Cookie("username",name);
                     	cookie.setValue(name);
-                    	cookie.setComment("probando uso cookies en servlet");
+                    	cookie.setComment("cookies username");
                     	resp.addCookie(cookie);
                     	
                     	resp.sendRedirect("/php/visit.php");
@@ -70,10 +69,10 @@ public class AccesoUsuario extends HttpServlet {
                 	
                 }
             } else {
-            	resp.sendRedirect("/mensajesFallo/invalidPass.html");
+            	resp.sendRedirect("/mensajesFallo/usuarioInvalido.html");
             }
         }catch (Exception e){
-        	
+        	resp.sendRedirect("/mensajesFallo/falloBaseDatos.html");
         } finally {
             query.closeAll();
             pm.close();
@@ -120,8 +119,9 @@ public class AccesoUsuario extends HttpServlet {
     }
     
     
-    private static String md5(String s) { try {
-        
+    private static String md5(String s,HttpServletResponse resp) throws IOException { 
+    	
+    try {        
         // Create MD5 Hash
         MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
         digest.update(s.getBytes());
@@ -134,7 +134,7 @@ public class AccesoUsuario extends HttpServlet {
         return hexString.toString();
  
      } catch (NoSuchAlgorithmException e) {
-         e.printStackTrace();
+    	 resp.sendRedirect("/mensajesFallo/invalidPass.html");
      }
      return "";
  
