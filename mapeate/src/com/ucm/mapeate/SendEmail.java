@@ -53,32 +53,33 @@ public class SendEmail extends HttpServlet {
             if (!results.isEmpty()) {
                 for (Usuarios u : results) {
                 
-                String nombre = u.getName();
-                
-                String mail = u.getEmail();
-                
-                if (mail.equalsIgnoreCase(email)){
-
-                	//generamos clave aleatoria
-                	int clave = (int) Math.floor(Math.random()*(0-9999+1)+9999);  // Valor entre 0 y 9999, ambos incluidos.
-                	String cadena= String.valueOf(clave);
-                	
-                	String md5 = md5(cadena);
-                	
-                	u.setPsw(md5);
-                	
-                	envia(email,nombre,cadena);
-                	resp.sendRedirect("/mensajesAcierto/mensajeEnviado.html");
+		                String nombre = u.getName();
+		                
+		                String mail = u.getEmail();
+		                
+		                if (mail.equalsIgnoreCase(email)){
+		
+		                	//generamos clave aleatoria
+		                	int clave = (int) Math.floor(Math.random()*(0-9999+1)+9999);  // Valor entre 0 y 9999, ambos incluidos.
+		                	String cadena= String.valueOf(clave);
+		                	
+		                	String md5 = md5(cadena);
+		                	
+		                	u.setPsw(md5);
+		                	
+		                	envia(email,nombre,cadena);
+		                	resp.sendRedirect("/mensajeAcierto/mensajeEnviado.html");
+		                }
+		                else{
+		                	resp.sendRedirect("/mensajesFallo/emailInvalido.html");
+		                }
                 }
-                else{
-                	resp.sendRedirect("/mensajesFallo/emailInvalido.html");
-                }
-            }
 	        } else {
 	            //no persistent object found
 	        	resp.sendRedirect("/mensajesFallo/emailInvalido.html");
 	        }
         }catch (Exception e){
+        	e.printStackTrace();
         	resp.sendRedirect("/mensajesFallo/falloBaseDatos.html");
         }finally{
         	query.closeAll();
@@ -106,9 +107,9 @@ public class SendEmail extends HttpServlet {
             Transport.send(msg);
 
         } catch (AddressException e) {
-            // ...
+        	e.printStackTrace();
         } catch (MessagingException e) {
-            // ...
+        	e.printStackTrace();
         }
     	
     }
