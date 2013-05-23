@@ -1,0 +1,49 @@
+
+#cabecera{
+	float:left;
+	width:100%;
+    height:auto;
+    overflow:auto;
+}
+
+#cabecera ul li{
+	display: inline;
+}
+
+#cabecera ul li a{
+	font-family: Arial;
+	font-size: 11px;
+	text-decoration: none;
+	float:left;
+	padding: 10px;
+	color: #fff;
+	width: 240px;
+}
+
+#cabecera ul li a:hover {
+	margin-top:-2px;
+	padding-bottom:12px;
+}
+
+.container{
+	float:left;
+	margin-left: 20%;
+	margin-right:auto;
+	width:100%;
+    height:auto;
+    overflow:auto;
+}
+
+#pie{
+	float:left;
+	margin-left:auto;
+	margin-right:auto;
+	width:100%;
+    height:auto;
+    overflow:auto;
+    margin-top: 10px;
+}
+
+
+
+

@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Gorkas Company" />
+    <meta name="keywords" content="sistemas web, mapeate, comparte, mundo" />
+    <meta name="description" content="Controla tus viajes y los de tus amigos.
+    Comenta lugares visitados, y los que te apetece descubrir. Comparte tu mundo." />
+    
+    <title>Map&eacute;ate</title>    
+	    
+    <link rel="icon" href="images/mapa.gif" type="image/png" />
+    
+ 
+ 	<!-- Scripts necesarios para el control de mapas -->
+ 	
+    <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCqXn2gWzmyke3FwAw_zfgvEos8tFeDDQ4&sensor=false">
+    </script>
+    
+    <script type="text/javascript" src="js/map.js"></script>
+    <script type="text/javascript" src="http://swfobject.googlecode.com/svn/trunk/swfobject/swfobject.js"></script>
+    
+    
+    <link href="css/pruebaMap.css" rel="stylesheet" type="text/css" />
+    <link href="css/fondo.css" rel="stylesheet" type="text/css" />
+    <link href="css/mapas.css" rel="stylesheet" type="text/css" />
+    
+  </head>
+  
+  <body >
+  
+  	<div id="principal">
+  	
+  		<div id="cabecera">
+  			<h2>
+  				Bienvenido a tu mundo
+  			</h2>
+  			<p>La versi&oacute;n sin registro te permite seleccionar cualquie punto del mapa
+  			y poner la etiqueta que quieras a ese punto, que se har&aacute; visible
+  			al clicar sobre &eacute;l</p><br/>
+  			
+  			<p>Haz una prueba y divi&eacute;rtete</p><br/>
+  			
+  			<p>Aqu&iacute; puedes elegir el color del marcador: </p>  				
+
+
+			<select id="colores" name="colores">
+			  <option value="1">green</option>
+			  <option value="2">pink</option>
+			  <option value="3">red</option>
+			  <option value="4">orange</option>
+			</select>
+  		
+  			<br/>
+	  		<p>Escribe la etiqueta: </p>
+	  		<input type="text" id="texto" />   	
+    	
+   	   </div>
+    
+    	<div id="lateral">
+			<h3>LOCALIZA</h3>
+				<ul>
+					 <li><a class="verde" href="/visitados.html">Sitios visitados(verde)</a></li>
+					 <li><a href="#">Sitios a los que quiero ir(naranja)</a></li>
+					 <li><a href="#Recomendados">Recomendaciones de otros viajeros</a></li>
+				</ul>	
+		</div>
+		
+		<div id="map_canvas">
+    	</div>
+    	
+    	
+    	<a id="Recomendados"></a>
+    	<p>Lugares mejor valorados por los viajeros</p>	
+    	<p>SOON</p>
+		
+	</div>      	
+    	
+ 	
+    	
+  </body>
+</html>

@@ -1,0 +1,31 @@
+
+
+#principal{
+	
+	margin-left:auto;
+	margin-right:auto;
+
+
+}
+
+#cabecera h3{
+	text-decoration: none;
+	color: black;
+	border-top: thin dotted;
+}
+
+#cabecera h3 ul li a{
+	text-decoration: none;
+	border-top: thin dotted;
+}
+
+#cabecera h2{
+	text-decoration: none;
+	color: black;
+	border-top: thin solid;
+	border-bottom: thin solid;
+}
+
+#cabecera h2 ul li a{
+	text-decoration: none;
+}

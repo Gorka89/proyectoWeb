@@ -1,0 +1,33 @@
+
+#map_canvas{
+	display:block;
+	width:80%; 
+	height:80%;
+	float:left;
+	margin-left: 10%;
+	margin-top:20px;
+}
+
+    img{ border: 0; }
+ 
+    .contentMap{
+        width: 630px;
+        border: 1px solid #336699;
+        max-height:415px;
+        overflow:auto;
+    }
+    .contentImg{
+        float: left;
+        width: 300px;
+        margin-right: 10px;
+        text-align: center;
+    }
+    .contentImg a{
+        color: #369;
+        font-size: 12px;
+    }
+    .contentTxt{
+        float: left;
+        width: 300px;
+    }
+    .clear{ clear: both; }
