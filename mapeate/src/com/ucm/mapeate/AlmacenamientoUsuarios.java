@@ -52,7 +52,7 @@ public class AlmacenamientoUsuarios extends HttpServlet {
     	cookie.setComment("cookies username");
     	resp.addCookie(cookie);
         
-        resp.sendRedirect("/mensajesAcierto/registroOK.html");
+        resp.sendRedirect("/mensajeAcierto/registroOK.html");
     }
     
     /**

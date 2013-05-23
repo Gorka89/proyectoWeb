@@ -12,29 +12,57 @@ import javax.servlet.http.HttpServletResponse;
  */
 @SuppressWarnings("serial")
 public class Logout extends HttpServlet {
+	
+		protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+	    		throws ServletException, IOException {
+	       
+	        try{	
+	        	// Destruimos la session
+	            request.getSession().invalidate();
+	            
+	            //destruyo la cookie de usuario seteando la validez a 0.
+	            Cookie[] cookies = request.getCookies();
+	            if (cookies != null)
+	                for (int i = 0; i < cookies.length; i++) {
+	                    if (cookies[i].getName().equalsIgnoreCase("username")){
+		                    cookies[i].setPath("/");
+		                    cookies[i].setMaxAge(0);
+		                    response.addCookie(cookies[i]);
+	                    }
+	                }
+	            
+	            // Redirigimos al servlet de login
+	            response.sendRedirect("/mensajesAcierto/logoutOK.html");
+	        }catch(Exception e){
+	        	response.sendRedirect("/mensajesFallo/logoutFail.html");
+	        }
+	    
+	    
+		}
 
-        protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+        		throws ServletException, IOException {
            
-        try{	
-        	// Destruimos la session
-            request.getSession().invalidate();
-            
-            //destruyo la cookie de usuario seteando la validez a 0.
-            Cookie[] cookies = request.getCookies();
-            if (cookies != null)
-                for (int i = 0; i < cookies.length; i++) {
-                    if (cookies[i].getName().equalsIgnoreCase("username")){
-	                    cookies[i].setPath("/");
-	                    cookies[i].setMaxAge(0);
-	                    response.addCookie(cookies[i]);
-                    }
-                }
-            
-            // Redirigimos al servlet de login
-            response.sendRedirect("/mensajesAcierto/logoutOK.html");
-        }catch(Exception e){
-        	
-        }
+	        try{	
+	        	// Destruimos la session
+	            request.getSession().invalidate();
+	            
+	            //destruyo la cookie de usuario seteando la validez a 0.
+	            Cookie[] cookies = request.getCookies();
+	            if (cookies != null)
+	                for (int i = 0; i < cookies.length; i++) {
+	                    if (cookies[i].getName().equalsIgnoreCase("username")){
+		                    cookies[i].setPath("/");
+		                    cookies[i].setMaxAge(0);
+		                    response.addCookie(cookies[i]);
+	                    }
+	                }
+	            
+	            // Redirigimos al servlet de login
+	            response.sendRedirect("/mensajeAcierto/logoutOK.html");
+	        }catch(Exception e){
+	        	response.sendRedirect("/mensajesFallo/logoutFail.html");
+	        }
         
         
         }

@@ -45,7 +45,7 @@ if($_COOKIE['username']==''){
 				  <li><a href="/quieroIr.php">Quiero visitar</a></li>
 				  <li><a href="/recomAleatorio.php">Recomendaciones de otros viajeros</a></li>
 				  <li><a href="../comentarios.html">Comentarios</a></li>
-				  <li><a href="../mapas.html">Logout</a></li>
+				  <li><a href="../logout">Logout</a></li>
 				</ul>
   			</div>
   		
