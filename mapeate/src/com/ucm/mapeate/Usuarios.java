@@ -90,12 +90,15 @@ public class Usuarios{
 		this.user = user;
 	}
 
-
+	
 	public Vector<Float> getCoordenadas() {
 		return coordenadas;
 	}
 
-
+	/**
+	 * Guarda coordenadas del mapa
+	 * @param coordenadas
+	 */
 	public void setCoordenadas(Vector<Float> coordenadas) {
 		this.coordenadas = coordenadas;
 	}
@@ -117,12 +120,18 @@ public class Usuarios{
 		
 	}
 
-
+	/**
+	 * Para conseguir el mensaje de la etiqueta del mapa
+	 * @return
+	 */
 	public String getTexto() {
 		return texto;
 	}
 
-
+	/**
+	 * Poner el mensaje de la etiqueta
+	 * @param texto
+	 */
 	public void setTexto(String texto) {
 		this.texto = texto;
 	}

@@ -72,23 +72,26 @@ window.onload = function(){
 				placeMarkerx(coorx,coory);
 			   
 			}
+			
+			alert("Tus lugares cargados con éxito");
  	
     });
     
     
     google.maps.event.addListener(map, 'click', function(event) {
-        //placeMarker(event.latLng);
+        placeMarker(event.latLng);
     	
     	var myLatLng = event.latLng;
         var lat = myLatLng.lat();
         var lng = myLatLng.lng();
     	
+        //placeMarkerx(lat, lng);
         
         // Rellenar X e Y
-		document.getElementById('latitud').value = loc.lat();
-		document.getElementById('longitud').value = loc.lng();
+		document.getElementById('latitud').value = lat;
+		document.getElementById('longitud').value = lng;
 		
-		placeMarkerx(lat, lng);
+		findAddress(location);
         
       });
 
@@ -98,7 +101,7 @@ window.onload = function(){
     	  var marker = new google.maps.Marker({
     	      position: location,
     	      map: map,
-    	      icon: 'http://gmaps-samples.googlecode.com/svn/trunk/markers/red/blank.png'
+    	      icon: 'http://gmaps-samples.googlecode.com/svn/trunk/markers/green/blank.png'
     	  });
     	  
     	  marker.setTitle(valor);
@@ -129,9 +132,7 @@ window.onload = function(){
   	  	attachSecretMessage(marcador);
   	  
   	    //Guardo el punto clicado
-  	    puntos.push(marker);
-
-  	    findAddress(location);
+  	    puntos.push(marcador);
 
     }
     
@@ -160,7 +161,7 @@ window.onload = function(){
 				} 
 				else 
 				{
-					alert("Fallo en el Geocoder debido a: " + status);
+					//alert("Fallo en el Geocoder debido a: " + status);
 				}
 			});
 		}

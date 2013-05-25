@@ -90,7 +90,7 @@ window.onload = function(){
 				} 
 				else 
 				{
-					alert("Fallo en el Geocoder debido a: " + status);
+					//alert("Fallo en el Geocoder debido a: " + status);
 				}
 			});
 		}

@@ -17,8 +17,6 @@ window.onload = function(){
  	
     });
     
-
-    
     
     google.maps.event.addListener(map, 'click', function(event) {
         placeMarker(event.latLng);
@@ -30,9 +28,6 @@ window.onload = function(){
         
       });
     
-
-
-
     
     function placeMarker(location) {
     	  var marker = new google.maps.Marker({

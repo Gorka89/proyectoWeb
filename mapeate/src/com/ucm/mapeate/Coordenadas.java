@@ -1,16 +1,9 @@
 package com.ucm.mapeate;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.logging.Logger;
+import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
-import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.*;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
@@ -36,10 +29,6 @@ public class Coordenadas extends HttpServlet {
                  
         PersistenceManager pm = PMF.get().getPersistenceManager();
         
-        Query query = pm.newQuery(Usuarios.class);
-        query.setFilter("(name == myParam)");
-        query.declareParameters("String myParam");
-        
         String usuario = "";
         int i = 0;
         Cookie[] cookies = req.getCookies();
@@ -51,12 +40,13 @@ public class Coordenadas extends HttpServlet {
         	}
         }
         
-        Collection col = (Collection) query.execute(usuario);
-        Iterator it = col.iterator();
-        if (it.hasNext()) {
-            //there is a result
-            while(it.hasNext()) {
-                Usuarios u = (Usuarios) it.next();
+        Query query = pm.newQuery(Usuarios.class,
+                "name == '"+usuario+"'");
+        
+        try {
+            List<Usuarios> results = (List<Usuarios>) query.execute();
+            if (!results.isEmpty()) {
+                for (Usuarios u : results) {
                 
                 float x = Float.parseFloat(latitud);
                 float y = Float.parseFloat(longitud);
@@ -64,9 +54,8 @@ public class Coordenadas extends HttpServlet {
                 u.addX(x);
                 u.addY(y);
                 u.setTexto(texto);
-          
-                //resp.sendRedirect("/mensajesFallo/mensajeEnviado.html");
-                
+                //codigo html para ver que todo ha ido bien
+                /*
         		resp.setContentType("text/html");
         		PrintWriter pw = resp.getWriter();
         		pw.println("<HTML><HEAD><TITLE>Coordenadas almacenadas correctamente</TITLE></HEAD>");
@@ -79,16 +68,22 @@ public class Coordenadas extends HttpServlet {
         		pw.println("</BODY></HTML>");
         		
                 
-                pw.close();
+                pw.close();*/
+                
+                resp.sendRedirect("/php/visit.php");
                 	
             }
-        } else {
-            //no persistent object found
-        	resp.sendRedirect("/mensajesFallo/usuarioInvalido.html");
+	        } else {
+	            //no persistent object found
+	        	resp.sendRedirect("/mensajesFallo/coordInval.html");
+	        }
+            
+        }catch(Exception e){
+        	resp.sendRedirect("/mensajesFallo/coordInvalid.html");
+        }finally{
+	        query.closeAll();	
+	        pm.close();
         }
-        query.closeAll();
-
-        pm.close();
 
     }
     

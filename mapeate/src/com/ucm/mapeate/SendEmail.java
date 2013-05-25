@@ -79,7 +79,6 @@ public class SendEmail extends HttpServlet {
 	        	resp.sendRedirect("/mensajesFallo/emailInvalido.html");
 	        }
         }catch (Exception e){
-        	e.printStackTrace();
         	resp.sendRedirect("/mensajesFallo/falloBaseDatos.html");
         }finally{
         	query.closeAll();
@@ -128,7 +127,7 @@ public class SendEmail extends HttpServlet {
         return hexString.toString();
  
      } catch (NoSuchAlgorithmException e) {
-         e.printStackTrace();
+
      }
      return "";
  

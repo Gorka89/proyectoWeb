@@ -44,7 +44,7 @@ to include your name with greetings you post.</p>
 <%
             } else {
 %>
-<p> password de usuariooo:</p>
+<p> password de usuario:</p>
 <%
             }
 %>

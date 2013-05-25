@@ -14,70 +14,80 @@
 <html>
   <body>
 
-<%     UserService userService = UserServiceFactory.getUserService();
-User user = userService.getCurrentUser();  
+<%     
+//jsp encargado de almacenar y crear la cookie de las coordenadas
+//para recuperarlas cuando el usuario desee
 
-PersistenceManager pm = PMF.get().getPersistenceManager();
+	try{
 
-Query query = pm.newQuery(Usuarios.class);
-query.setFilter("(name == myParam)");
-query.declareParameters("String myParam");
-
-String usuario = "";
-int i = 0;
-Cookie[] cookies = request.getCookies();
-
-//Si no hay cookies se redirecciona al index
-if ((cookies == null) || (cookies.length == 0)) {
-	response.sendRedirect("/index.html");
-}
-else{
-
-
-//se recorren las cookies en busca del nombre de usuario para buscar en la tabla
-	for (i=0;i<cookies.length;i++){
+		UserService userService = UserServiceFactory.getUserService();
+		User user = userService.getCurrentUser();  
 		
-		if (cookies[i].getName().equalsIgnoreCase("username")){
-			usuario = cookies[i].getValue();
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		
+		String usuario = "";
+		int i = 0;
+		Cookie[] cookies = request.getCookies();
+		
+		//Si no hay cookies se redirecciona al index
+		if ((cookies == null) || (cookies.length == 0)) {
+			response.sendRedirect("/index.html");
 		}
-	}
-
-	if (usuario != ""){
-		Collection col = (Collection) query.execute(usuario);
-		Iterator it = col.iterator();
+		else{
 		
-		if (it.hasNext()) {
 		
-		    //there is a result
-		    while(it.hasNext()) {
-		        Usuarios u = (Usuarios) it.next();
+		//se recorren las cookies en busca del nombre de usuario para buscar en la tabla
+			for (i=0;i<cookies.length;i++){
+				
+				if (cookies[i].getName().equalsIgnoreCase("username")){
+					usuario = cookies[i].getValue();
+				}
+			}
+		
+			if (usuario != ""){
+				
+		        Query query = pm.newQuery(Usuarios.class,
+		                "name == '"+usuario+"'");
 		        
-		        %>
-		        	<p><%= u.getCoordenadas().toString() %></p>
-		        <%
+		        try{
 		        
-		      //creo cookie con las coordenadas recuperadas
-		        Cookie coordenadas = new Cookie("coordenadas", u.getCoordenadas().toString());
-		        coordenadas.setValue(u.getCoordenadas().toString());
-		        coordenadas.setComment("coordenadas del usuario");
-		        coordenadas.setPath("/");
-            	response.addCookie(coordenadas);
-		    }   		
-		    
-		}
+			        List<Usuarios> results = (List<Usuarios>) query.execute();
+		            if (!results.isEmpty()) {
+		                for (Usuarios u : results) {
+					        
+					        %>
+					        	<p><%= u.getCoordenadas().toString() %></p>
+					        <%
+					        
+					      //creo cookie con las coordenadas recuperadas
+					        Cookie coordenadas = new Cookie("coordenadas", u.getCoordenadas().toString());
+					        coordenadas.setValue(u.getCoordenadas().toString());
+					        coordenadas.setComment("coordenadas del usuario");
+					        coordenadas.setPath("/");
+			            	response.addCookie(coordenadas);
+					    }   		
+					    
+					}
+		            
+		        }catch(Exception e){
+		        	response.sendRedirect("/index.html");
+		        }finally{
+		    		query.closeAll();		    		
+		    		pm.close();
+		        }
+				
+				
+			}
+			else{
+				response.sendRedirect("/mensajesFallo/falloBaseDatos.html"); 
+			}
 		
-		
-		
-	}
-	else{
-		response.sendRedirect("/index.html"); 
-	}
+		}//not cookies			
 
-}//not cookies
-	
-query.closeAll();
-
-pm.close(); 
+		
+	}catch(Exception e){
+		response.sendRedirect("/mensajesFallo/falloBaseDatos.html");
+	}
 
 
 
