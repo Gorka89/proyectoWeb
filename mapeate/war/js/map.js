@@ -51,54 +51,29 @@ window.onload = function(){
     var recar = document.getElementById("recarga");
     recar.addEventListener("click",function(){	
 
-
-			placeMarkerx(37.192869,-3.613186);
-
+    		//recupero las coordenadas almacenadas en la cookie
 			var coo = Tools.readCookie("coordenadas");
 
-			alert(coo);
-
-			var porcion = coo.substring(1, 4);
-			
-			prompt("porcion 1 a 4  "+porcion);
-			
-
-			var str_array = coo.split(',');
-
+			//es un array string de numeros
+			//parseo para sacar las coordenadas numericas
+			//y situarlas en el mapa
 			var l = coo.length;
-
-			prompt("Longitud "+l);
-
+			//quito los corchetes [ ]
 			var li = l-2;
-			prompt("Long menos 2 "+li);
 			var lon = parseFloat(li);
 			var porcion = coo.substring(2, lon);
 			var palabras = porcion.split(",");
 
-			prompt("sin paren "+porcion);
-			prompt("con split "+palabras);
-
 			for(var i = 0; i < palabras.length; i=i+2){
-			   // Trim the excess whitespace.
-			   //str_array[i] = str_array[i].replace(/^\s*/, "").replace(/\s*$/, "");
-			   // Add additional code here, such as:
-			   alert(palabras[i]);
+
 				var coorx = palabras[i];
 				var coory = palabras[i+1];
 
 				placeMarkerx(coorx,coory);
 			   
 			}
-			
-
-
  	
     });
-    
-    
-    
-    
-
     
     
     google.maps.event.addListener(map, 'click', function(event) {
@@ -110,8 +85,8 @@ window.onload = function(){
     	
         
         // Rellenar X e Y
-		//document.getElementById('latitud').value = loc.lat();
-		//document.getElementById('longitud').value = loc.lng();
+		document.getElementById('latitud').value = loc.lat();
+		document.getElementById('longitud').value = loc.lng();
 		
 		placeMarkerx(lat, lng);
         
@@ -139,8 +114,6 @@ window.onload = function(){
     
   //funcion para posicionar coordenadas en el mapa
     function placeMarkerx(x,y) {
-    	
-    	alert("estamos en placeMarkerx");
 
         var xx = parseFloat(x);
         var yy = parseFloat(y);
@@ -151,6 +124,14 @@ window.onload = function(){
         map: map,
         icon: 'http://gmaps-samples.googlecode.com/svn/trunk/markers/green/blank.png'
         });
+        
+        marcador.setTitle(valor);
+  	  	attachSecretMessage(marcador);
+  	  
+  	    //Guardo el punto clicado
+  	    puntos.push(marker);
+
+  	    findAddress(location);
 
     }
     
@@ -179,7 +160,7 @@ window.onload = function(){
 				} 
 				else 
 				{
-					alert("Geocoder failed due to: " + status);
+					alert("Fallo en el Geocoder debido a: " + status);
 				}
 			});
 		}

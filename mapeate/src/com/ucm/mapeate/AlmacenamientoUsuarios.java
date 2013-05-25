@@ -28,7 +28,7 @@ public class AlmacenamientoUsuarios extends HttpServlet {
         String psw = req.getParameter("password");
         String email = req.getParameter("email");
         
-        String md5 = md5(psw,resp);
+        String md5 = md5(psw);
         
         Usuarios usuario = new Usuarios(user,nombre,md5,email);
                  
@@ -61,7 +61,7 @@ public class AlmacenamientoUsuarios extends HttpServlet {
      * @return
      * @throws IOException 
      */
-    private static String md5(String s,HttpServletResponse resp) throws IOException { 
+    private static String md5(String s) { 
     
     try {
         
@@ -77,7 +77,7 @@ public class AlmacenamientoUsuarios extends HttpServlet {
         return hexString.toString();
  
      } catch (NoSuchAlgorithmException e) {
-    	 resp.sendRedirect("/mensajesFallo/invalidPass.html");
+    	 
      }
      return "";
  

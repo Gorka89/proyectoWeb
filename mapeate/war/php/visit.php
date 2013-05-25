@@ -41,9 +41,9 @@ if($_COOKIE['username']==''){
   			<!-- Menú de navegación del sitio -->
   			<div id="menuLat">
 				<ul class="navbar">
-				  <li><a href="/visit.php">Visitados</a></li>
-				  <li><a href="/quieroIr.php">Quiero visitar</a></li>
-				  <li><a href="/recomAleatorio.php">Recomendaciones de otros viajeros</a></li>
+				  <li><a href="/php/visit.php">Visitados</a></li>
+				  <li><a href="/php/quieroIr.php">Quiero visitar</a></li>
+				  <li><a href="/php/recomAleatorio.php">Recomendaciones de otros viajeros</a></li>
 				  <li><a href="../comentarios.html">Comentarios</a></li>
 				  <li><a href="../logout">Logout</a></li>
 				</ul>
@@ -67,11 +67,11 @@ if($_COOKIE['username']==''){
 	  		
 	            <input type="submit" value="Guardar visitado" class="boton" />
 	            
-	            <input type="reset" value="Limpiar"/>           
+	            <input type="reset" value="Limpiar" class="boton"/>           
             
         	</form>    
         	
-				<input type="submit" value="Borrar visitado" id="borrar" />
+				<input type="submit" value="Borrar visitado" id="borrar" class="boton" />
 				
 				<input type="submit" value="Recargar visitados" id="recarga" class="boton" />
   		

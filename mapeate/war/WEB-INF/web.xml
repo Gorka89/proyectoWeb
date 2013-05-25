@@ -57,7 +57,7 @@
     </servlet-mapping>
     
     
-            <servlet>
+    <servlet>
         <servlet-name>recupera</servlet-name>
         <servlet-class>com.ucm.mapeate.SendEmail</servlet-class>
     </servlet>
@@ -109,6 +109,23 @@
     <servlet-name>Quercus Servlet</servlet-name>
     <url-pattern>*.php</url-pattern>
   </servlet-mapping>
+  
+  <!-- Seguridad https -->
+
     
+    <error-page>
+        <error-code>500</error-code>
+        <location>/mensajesFallo/mensajeError.html</location>
+    </error-page>
+    
+    <error-page>
+        <error-code>404</error-code>
+        <location>com.ucm.mapeate.AlmacenamientoUsuarios</location>
+    </error-page>
+    
+    <error-page>
+        <error-code>400</error-code>
+        <location>/mensajesFallo/mensajeError.html</location>
+    </error-page>
 
 </web-app>

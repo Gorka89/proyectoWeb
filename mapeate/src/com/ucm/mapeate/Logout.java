@@ -32,7 +32,7 @@ public class Logout extends HttpServlet {
 	                }
 	            
 	            // Redirigimos al servlet de login
-	            response.sendRedirect("/mensajesAcierto/logoutOK.html");
+	            response.sendRedirect("/mensajeAcierto/logoutOK.html");
 	        }catch(Exception e){
 	        	response.sendRedirect("/mensajesFallo/logoutFail.html");
 	        }

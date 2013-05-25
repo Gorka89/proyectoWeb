@@ -30,6 +30,7 @@ if($_COOKIE['username']==''){
     <link href="../css/fondo.css" rel="stylesheet" type="text/css" />
     <link href="../css/pruebaMap.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../css/estiloPrueba.css" />
+    <link rel="stylesheet" type="text/css" href="../css/buttonCSS.css" />
     
   </head>
   
@@ -37,17 +38,12 @@ if($_COOKIE['username']==''){
     	
   		<div id="principal">
   		
-  			<?php 
-  				$name = $_REQUEST['usuario'];
-  				$psw = $_REQUEST['psw'];
-  			?>
-  		
   			<!-- Menú de navegación del sitio -->
   			<div id="menuLat">
 				<ul class="navbar">
-				  <li><a href="visit.php">Visitados</a></li>
-				  <li><a href="quieroIr.php">Quiero visitar</a></li>
-				  <li><a href="../presentacion.html">Recomendaciones de otros viajeros</a></li>
+				  <li><a href="/php/visit.php">Visitados</a></li>
+				  <li><a href="/php/quieroIr.php">Quiero visitar</a></li>
+				  <li><a href="/php/recomAleatorio.php">Recomendaciones de otros viajeros</a></li>
 				  <li><a href="../comentarios.html">Comentarios</a></li>
 				  <li><a href="../logout">Logout</a></li>
 				</ul>
@@ -66,15 +62,15 @@ if($_COOKIE['username']==''){
 	            Longitud: <input type="text" id ="longitud" name="longitud"/><br/><br/>
 	            Mensaje del lugar pendiente de visitar: <input type="text" id="texto" name="texto" />   
 	  		
-	            <input type="submit" value="Guardar visita pendiente"/>
+	            <input type="submit" value="Guardar visita pendiente" class="boton"/>
 	            
-	            <input type="reset" value="Limpiar"/>           
+	            <input type="reset" value="Limpiar" class="boton"/>           
             
         	</form>    
         	
-				<input type="submit" value="Borrar ultimo pendiente situado" id="borrar" />
+				<input type="submit" value="Borrar ultimo pendiente situado" id="borrar" class="boton" />
 				
-				<input type="submit" value="Situar pendiente de visitar" id="pendiente" />
+				<input type="submit" value="Situar pendiente de visitar" id="pendiente" class="boton" />
   		
   			<br/>
 	  		

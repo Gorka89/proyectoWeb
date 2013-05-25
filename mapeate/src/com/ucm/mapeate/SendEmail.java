@@ -107,9 +107,9 @@ public class SendEmail extends HttpServlet {
             Transport.send(msg);
 
         } catch (AddressException e) {
-        	e.printStackTrace();
+        	//e.printStackTrace();
         } catch (MessagingException e) {
-        	e.printStackTrace();
+        	//e.printStackTrace();
         }
     	
     }
