@@ -7,7 +7,7 @@
 <title>Comparte tus fotos de lugares visitados</title>
 </head>
 <body>
-
+	<h1>Esta funcionalidad se ha decidido omitirla</h1>
 	<form action="SubirArchivo" method="post" enctype="multipart/form-data">
 		<input type="file" name="archivo" />
 		<button type="submit">Subir foto</button>
