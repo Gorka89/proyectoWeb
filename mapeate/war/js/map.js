@@ -6,12 +6,13 @@ window.onload = function(){
     };
  
     var map = new google.maps.Map(document.getElementById('map_canvas'), options);
+    //array necesario para almacenar los puntos, por si se desean eliminar
     var puntos = [];
     var valor = document.getElementById("texto").value;
     
     var b = document.getElementById("borrar");
     b.addEventListener("click",function(){	
-
+    		//al recibir evento clic, se elimina el último punto clicado
     		puntos[puntos.length-1].setMap(null);
     		puntos.pop(puntos[puntos.length-1]);
  	
@@ -45,35 +46,41 @@ window.onload = function(){
 	    Tools.createCookie(name,"",-1);
 	  }
 	};
-    
 
 
     var recar = document.getElementById("recarga");
     recar.addEventListener("click",function(){	
 
     		//recupero las coordenadas almacenadas en la cookie
-			var coo = Tools.readCookie("coordenadas");
-
-			//es un array string de numeros
-			//parseo para sacar las coordenadas numericas
-			//y situarlas en el mapa
-			var l = coo.length;
-			//quito los corchetes [ ]
-			var li = l-2;
-			var lon = parseFloat(li);
-			var porcion = coo.substring(2, lon);
-			var palabras = porcion.split(",");
-
-			for(var i = 0; i < palabras.length; i=i+2){
-
-				var coorx = palabras[i];
-				var coory = palabras[i+1];
-
-				placeMarkerx(coorx,coory);
-			   
-			}
+			var coo = Tools.readCookie("coordVisit");
 			
-			alert("Tus lugares cargados con éxito");
+			if (coo == null){
+				alert("No hay sitios visitados almacenados");
+			}
+			else{
+
+				//es un array string de numeros
+				//parseo para sacar las coordenadas numericas
+				//y situarlas en el mapa
+				var l = coo.length;
+				//quito los corchetes [ ]
+				var li = l-2;
+				var lon = parseFloat(li);
+				var porcion = coo.substring(2, lon);
+				var palabras = porcion.split(",");
+	
+				for(var i = 0; i < palabras.length; i=i+2){
+	
+					var coorx = palabras[i];
+					var coory = palabras[i+1];
+	
+					placeMarkerx(coorx,coory);
+				   
+				}
+				
+				alert("Tus lugares cargados con éxito");
+				
+			}
  	
     });
     

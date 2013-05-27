@@ -50,24 +50,37 @@
 		                "name == '"+usuario+"'");
 		        
 		        try{
+		        	
+			        String texto = request.getParameter("texto");
+			        String latitud = request.getParameter("latitud");
+			        String longitud = request.getParameter("longitud");
 		        
 			        List<Usuarios> results = (List<Usuarios>) query.execute();
 		            if (!results.isEmpty()) {
 		                for (Usuarios u : results) {
+		                	
+			                float x = Float.parseFloat(latitud);
+			                float y = Float.parseFloat(longitud);
+		                	
+			                u.addVisitX(x);
+			                u.addVisitY(y);
+			                u.setTexto(texto);
 					        
 					        %>
-					        	<p><%= u.getCoordenadas().toString() %></p>
+					        	<p><%= u.getCoordVisit().toString() %></p>
 					        <%
 					        
 					      //creo cookie con las coordenadas recuperadas
-					        Cookie coordenadas = new Cookie("coordenadas", u.getCoordenadas().toString());
-					        coordenadas.setValue(u.getCoordenadas().toString());
+					        Cookie coordenadas = new Cookie("coordVisit", u.getCoordVisit().toString());
+					        coordenadas.setValue(u.getCoordVisit().toString());
 					        coordenadas.setComment("coordenadas del usuario");
 					        coordenadas.setPath("/");
 			            	response.addCookie(coordenadas);
 					    }   		
 					    
 					}
+		            
+		            //response.sendRedirect("/php/visit.php");
 		            
 		        }catch(Exception e){
 		        	response.sendRedirect("/index.html");
@@ -79,7 +92,7 @@
 				
 			}
 			else{
-				response.sendRedirect("/mensajesFallo/falloBaseDatos.html"); 
+				response.sendRedirect("/mensajesFallo/coordInvalid.html"); 
 			}
 		
 		}//not cookies			

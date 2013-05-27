@@ -29,6 +29,16 @@ public class Logout extends HttpServlet {
 		                    cookies[i].setMaxAge(0);
 		                    response.addCookie(cookies[i]);
 	                    }
+	                    if (cookies[i].getName().equalsIgnoreCase("coordVisit")){
+		                    cookies[i].setPath("/");
+		                    cookies[i].setMaxAge(0);
+		                    response.addCookie(cookies[i]);
+	                    }
+	                    if (cookies[i].getName().equalsIgnoreCase("coordPend")){
+		                    cookies[i].setPath("/");
+		                    cookies[i].setMaxAge(0);
+		                    response.addCookie(cookies[i]);
+	                    }
 	                }
 	            
 	            // Redirigimos al servlet de login

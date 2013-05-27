@@ -56,7 +56,7 @@ if($_COOKIE['username']==''){
   			<p>Situa en ROJO los sitios pendientes de descubrir</p>  				
 			
 			<p>Coordenada pulsada:</p>
-        	<form action="/coordenada" method="post" name="formulario">
+        	<form action="/coordPend" method="post" name="formulario">
         	
 	            Latitud: <input type="text" id="latitud" name="latitud"/> 
 	            Longitud: <input type="text" id ="longitud" name="longitud"/><br/><br/>
@@ -71,8 +71,9 @@ if($_COOKIE['username']==''){
 				<input type="submit" value="Borrar ultimo pendiente situado" id="borrar" class="boton" />
 				
 				<input type="submit" value="Situar pendiente de visitar" id="pendiente" class="boton" />
+				
+				<input type="submit" value="Recargar pendientes de visita" id="recargaPend" class="boton" />
   		
-  			<br/>
 	  		
 	  			<div id="map_canvas">
 	

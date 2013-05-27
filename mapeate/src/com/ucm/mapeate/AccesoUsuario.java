@@ -1,11 +1,8 @@
 package com.ucm.mapeate;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -30,58 +27,81 @@ public class AccesoUsuario extends HttpServlet {
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp)
                 throws IOException {
-        UserService userService = UserServiceFactory.getUserService();
-        User user = userService.getCurrentUser();
-        
-        String nombre = req.getParameter("usernameLogin");
-        String psw = req.getParameter("passwordLogin");
-        
-        PersistenceManager pm = PMF.get().getPersistenceManager();
-        
-        Query query = pm.newQuery(Usuarios.class,
-                "name == '"+nombre+"'");
-        
-        try {
-            List<Usuarios> results = (List<Usuarios>) query.execute();
-            if (!results.isEmpty()) {
-                for (Usuarios u : results) {
-                    
-                	String name = u.getName();
-                    
-                    String ps = u.getPsw();
-                    //se compara con el md5 de la pass almacenada en la BD
-                    String md5 = md5(psw,resp);                
-                    
-                    if (ps.equalsIgnoreCase(md5)){
-                    	
-                    	//creo la cookie con el usuario
-                    	Cookie cookie = new Cookie("username",name);
-                    	cookie.setValue(name);
-                    	cookie.setComment("cookies username");
-                    	resp.addCookie(cookie);
-                    	
-                    	resp.sendRedirect("/php/visit.php");
-                    
-                    }
-                    else{
-                    	resp.sendRedirect("/mensajesFallo/invalidPass.html");                
-                    }
-                	
-                }
-            } else {
-            	resp.sendRedirect("/mensajesFallo/usuarioInvalido.html");
-            }
-        }catch (Exception e){
-        	resp.sendRedirect("/mensajesFallo/falloBaseDatos.html");
-        } finally {
-            query.closeAll();
-            pm.close();
-        }
+    	//este try se usa por posibles problemas del server de google
+    	try{
+    		
+	        //UserService userService = UserServiceFactory.getUserService();
+	        //User user = userService.getCurrentUser();
+	        
+	        String nombre = req.getParameter("usernameLogin");
+	        String psw = req.getParameter("passwordLogin");
+	        
+	        PersistenceManager pm = PMF.get().getPersistenceManager();
+	        
+	        Query query = pm.newQuery(Usuarios.class,
+	                "name == '"+nombre+"'");
+	        
+	        try {
+	            List<Usuarios> results = (List<Usuarios>) query.execute();
+	            if (!results.isEmpty()) {
+	                for (Usuarios u : results) {
+	                    
+	                	String name = u.getName();
+	                    
+	                    String ps = u.getPsw();
+	                    //se compara con el md5 de la pass almacenada en la BD
+	                    String md5 = md5(psw);                
+	                    
+	                    if (ps.equalsIgnoreCase(md5)){
+	                    	
+	                    	//creo la cookie con el usuario
+	                    	Cookie cookie = new Cookie("username",name);
+	                    	cookie.setValue(name);
+	                    	cookie.setComment("cookies username");
+	                    	resp.addCookie(cookie);
+	                    	
+	                    	//recupero coordenadas si las hubiera
+	                    	Cookie coordenadas = new Cookie("coordVisit", u.getCoordVisit().toString());
+					        coordenadas.setValue(u.getCoordVisit().toString());
+					        coordenadas.setComment("coordenadas visitados del usuario");
+					        coordenadas.setPath("/");
+			            	resp.addCookie(coordenadas);
+			            	
+	                    	Cookie coordenadasP = new Cookie("coordPend", u.getCoordPend().toString());
+					        coordenadasP.setValue(u.getCoordPend().toString());
+					        coordenadasP.setComment("coordenadas pendientes visita del usuario");
+					        coordenadasP.setPath("/");
+			            	resp.addCookie(coordenadasP);
+	                    	
+	                    	resp.sendRedirect("/php/visit.php");
+	                    
+	                    }
+	                    else{
+	                    	resp.sendRedirect("/mensajesFallo/invalidPass.html");                
+	                    }
+	                	
+	                }
+	            } else {
+	            	resp.sendRedirect("/mensajesFallo/usuarioInvalido.html");
+	            }
+	        }catch (Exception e){
+	        	e.printStackTrace();
+	        	resp.sendRedirect("/mensajesFallo/usuarioInvalido.html");
+	        	//resp.sendRedirect("/mensajesFallo/falloBaseDatos.html");
+	        } finally {
+	            query.closeAll();
+	            pm.close();
+	        }
+	        
+    	}catch (Exception e) {
+    		e.printStackTrace();
+	    	resp.sendRedirect("/mensajesFallo/falloBaseDatos.html");
+		}
 
     }
     
     
-    private static String md5(String s,HttpServletResponse resp) throws IOException { 
+    private static String md5(String s) throws IOException { 
     	
     try {        
         // Create MD5 Hash
@@ -96,7 +116,7 @@ public class AccesoUsuario extends HttpServlet {
         return hexString.toString();
  
      } catch (NoSuchAlgorithmException e) {
-    	 resp.sendRedirect("/mensajesFallo/invalidPass.html");
+
      }
      return "";
  

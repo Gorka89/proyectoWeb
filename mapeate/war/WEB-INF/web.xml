@@ -13,8 +13,6 @@
   </welcome-file-list>
   
 
-  
-
   <servlet>
     <servlet-name>SystemServiceServlet</servlet-name>
     <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
@@ -82,14 +80,25 @@
     
     <!-- Servlet almacenamiento coordenadas -->
     <servlet>
-        <servlet-name>coordenada</servlet-name>
-        <servlet-class>com.ucm.mapeate.Coordenadas</servlet-class>
+        <servlet-name>coordVisit</servlet-name>
+        <servlet-class>com.ucm.mapeate.CoordVisit</servlet-class>
     </servlet>
     
 
     <servlet-mapping>
-        <servlet-name>coordenada</servlet-name>
-        <url-pattern>/coordenada</url-pattern>
+        <servlet-name>coordVisit</servlet-name>
+        <url-pattern>/coordVisit</url-pattern>
+    </servlet-mapping>
+    
+        <servlet>
+        <servlet-name>coordPend</servlet-name>
+        <servlet-class>com.ucm.mapeate.CoordPend</servlet-class>
+    </servlet>
+    
+
+    <servlet-mapping>
+        <servlet-name>coordPend</servlet-name>
+        <url-pattern>/coordPend</url-pattern>
     </servlet-mapping>
     
      <!-- QUERCUS -->
@@ -120,7 +129,7 @@
     
     <error-page>
         <error-code>404</error-code>
-        <location>com.ucm.mapeate.AlmacenamientoUsuarios</location>
+        <location>/mensajesFallo/mensajeError.html</location>
     </error-page>
     
     <error-page>

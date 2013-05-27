@@ -12,8 +12,7 @@ function validarCamposLogin () {
 		usuarioLogin.style.backgroundColor = "rgb(12, 102, 102)";
 	}
 
-	if (passLogin.value == ""){
-		
+	if (passLogin.value == ""){		
 		passLogin.style.backgroundColor = "#FFCCCC";
 		errores = 1;
 	}else{
@@ -48,15 +47,19 @@ function validarCamposRegister () {
 	{
 		passText.style.backgroundColor = "#FFCCCC";
 		errores = 1;
+	}else{
+		passText.style.backgroundColor = "#12F4CC";
 	}
+
 
     expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     if ( !expr.test(emailText.value) ){
         alert("Error: La dirección de correo " + emailText.value + " es incorrecta.");
         emailText.style.backgroundColor = "#FFCCCC";
     	errores = 1;
-    }
-
+	}else{
+		emailText.style.backgroundColor = "#12F4CC";
+	}
 	
 	if (errores == 0)
 	{

@@ -27,28 +27,46 @@ public class Usuarios{
     @Persistent
     private String email;
     
+    //almacena coordenadas de sitios visitados
 	@Persistent
-    private Vector<Float> coordenadas;
+    private Vector<Float> coordVisit;
+	
+	//almacena coordenadas de sitios pendientes de visitar
+	@Persistent
+    private Vector<Float> coordPend;
 	
 	@Persistent
 	private String texto;
     
-
+	/**
+	 * Constructor Usuario
+	 * @param user
+	 * @param name
+	 * @param psw
+	 * @param email
+	 */
     public Usuarios(User user, String name, String psw, String email) {
     	this.setUser(user);
         this.setName(name);
         this.setPsw(psw);
         this.setEmail(email);
-        setCoordenadas(new Vector<Float>());
+        setCoordVisit(new Vector<Float>());
+        setCoordPend(new Vector<Float>());
         setTexto("");
     }
     
-
+    /**
+     * 
+     * @param name
+     * @param psw
+     * @param email
+     */
     public Usuarios(String name, String psw, String email) {
         this.setName(name);
         this.setPsw(psw);
         this.setEmail(email);
-        setCoordenadas(new Vector<Float>());
+        setCoordVisit(new Vector<Float>());
+        setCoordPend(new Vector<Float>());
         setTexto("");
 	}
 
@@ -90,36 +108,6 @@ public class Usuarios{
 		this.user = user;
 	}
 
-	
-	public Vector<Float> getCoordenadas() {
-		return coordenadas;
-	}
-
-	/**
-	 * Guarda coordenadas del mapa
-	 * @param coordenadas
-	 */
-	public void setCoordenadas(Vector<Float> coordenadas) {
-		this.coordenadas = coordenadas;
-	}
-
-	/**
-	 * Coordenada par
-	 * @param x
-	 */
-	public void addX(float x) {
-		coordenadas.add(x);		
-	}
-
-	/**
-	 * posicion impar del vector
-	 * @param y
-	 */
-	public void addY(float y) {
-		coordenadas.add(y);
-		
-	}
-
 	/**
 	 * Para conseguir el mensaje de la etiqueta del mapa
 	 * @return
@@ -136,7 +124,55 @@ public class Usuarios{
 		this.texto = texto;
 	}
 
+	public Vector<Float> getCoordVisit() {
+		return coordVisit;
+	}
 
+	public void setCoordVisit(Vector<Float> coordVisit) {
+		this.coordVisit = coordVisit;
+	}
+
+	public Vector<Float> getCoordPend() {
+		return coordPend;
+	}
+
+	public void setCoordPend(Vector<Float> coordPend) {
+		this.coordPend = coordPend;
+	}
+
+	/**
+	 * Coordenada par
+	 * @param x
+	 */
+	public void addVisitX(float x) {
+		getCoordVisit().add(x);		
+	}
+
+	/**
+	 * posicion impar del vector
+	 * @param y
+	 */
+	public void addVisitY(float y) {
+		getCoordVisit().add(y);
+		
+	}
+	
+	/**
+	 * Coordenada par
+	 * @param x
+	 */
+	public void addPendX(float x) {
+		getCoordPend().add(x);		
+	}
+
+	/**
+	 * posicion impar del vector
+	 * @param y
+	 */
+	public void addPendY(float y) {
+		getCoordPend().add(y);
+		
+	}
 
 
 }

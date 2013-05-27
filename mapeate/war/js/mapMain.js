@@ -70,7 +70,7 @@ window.onload = function(){
 				} 
 				else 
 				{
-					alert("Geocoder failed due to: " + status);
+					//alert("Geocoder failed due to: " + status);
 				}
 			});
 		}

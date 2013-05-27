@@ -38,17 +38,20 @@ public class SendEmail extends HttpServlet {
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp)
                 throws IOException {
-        UserService userService = UserServiceFactory.getUserService();
-        User user = userService.getCurrentUser();
+    	
+        //UserService userService = UserServiceFactory.getUserService();
+        //User user = userService.getCurrentUser();
 
-        String email = req.getParameter("email");       
+    	try {
+    	
+	        String email = req.getParameter("email");       
+	        
+	        PersistenceManager pm = PMF.get().getPersistenceManager();
+	        
+	        Query query = pm.newQuery(Usuarios.class,
+	                "email == '"+email+"'");
         
-        PersistenceManager pm = PMF.get().getPersistenceManager();
         
-        Query query = pm.newQuery(Usuarios.class,
-                "email == '"+email+"'");
-        
-        try {
             List<Usuarios> results = (List<Usuarios>) query.execute();
             if (!results.isEmpty()) {
                 for (Usuarios u : results) {
@@ -78,11 +81,13 @@ public class SendEmail extends HttpServlet {
 	            //no persistent object found
 	        	resp.sendRedirect("/mensajesFallo/emailInvalido.html");
 	        }
+            
+        	query.closeAll();
+        	pm.close();           
+            
+            
         }catch (Exception e){
         	resp.sendRedirect("/mensajesFallo/falloBaseDatos.html");
-        }finally{
-        	query.closeAll();
-        	pm.close();
         }
         
     }
@@ -106,9 +111,9 @@ public class SendEmail extends HttpServlet {
             Transport.send(msg);
 
         } catch (AddressException e) {
-        	//e.printStackTrace();
+        	e.printStackTrace();
         } catch (MessagingException e) {
-        	//e.printStackTrace();
+        	e.printStackTrace();
         }
     	
     }

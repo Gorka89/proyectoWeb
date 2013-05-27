@@ -32,6 +32,71 @@ window.onload = function(){
     var chicago = new google.maps.LatLng(41.850033, -87.6500523);
     
     
+  //control de cookies
+	var Tools = {
+	  createCookie: function(name, value,days) {
+	    if (days) {
+	      var date = new Date();
+	      date.setTime(date.getTime()+(days*24*60*60*1000));
+	      var expires = "; expires="+date.toGMTString();
+	    }else var expires = "";
+	      document.cookie = name+"="+value+expires+"; path=/";
+	  },
+	
+	  readCookie: function(name) {
+	    var nameEQ = name + "=";
+	    var ca = document.cookie.split(';');
+	    for(var i=0;i < ca.length;i++) {
+	      var c = ca[i];
+	      while (c.charAt(0)==' ') c = c.substring(1,c.length);
+	      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+	    }
+	    return null;
+	  },
+	
+	  eraseCookie: function(name) {
+	    Tools.createCookie(name,"",-1);
+	  }
+	};
+	
+
+
+    var recar = document.getElementById("recargaPend");
+    recar.addEventListener("click",function(){	
+
+    		//recupero las coordenadas almacenadas en la cookie
+			var coo = Tools.readCookie("coordPend");
+
+			if (coo == null){
+				alert("No hay sitios almacenados");
+			}
+			else{
+				//es un array string de numeros
+				//parseo para sacar las coordenadas numericas
+				//y situarlas en el mapa
+				var l = coo.length;
+				//quito los corchetes [ ]
+				var li = l-2;
+				var lon = parseFloat(li);
+				var porcion = coo.substring(2, lon);
+				var palabras = porcion.split(",");
+	
+				for(var i = 0; i < palabras.length; i=i+2){
+	
+					var coorx = palabras[i];
+					var coory = palabras[i+1];
+	
+					placeMarkerx(coorx,coory);
+				   
+				}
+				
+				alert("Tus lugares cargados con éxito");
+				
+			}
+ 	
+    });
+    
+    
     google.maps.event.addListener(map, 'click', function(event) {
         placeMarker(event.latLng);
         
@@ -64,6 +129,28 @@ window.onload = function(){
 
     	  //map.setCenter(location);
     	  findAddress(location);
+    }
+    
+    
+  //funcion para posicionar coordenadas en el mapa
+    function placeMarkerx(x,y) {
+
+        var xx = parseFloat(x);
+        var yy = parseFloat(y);
+               
+        var marcador = new google.maps.Marker({
+        position: new google.maps.LatLng(xx, yy),
+        draggable: true, 
+        map: map,
+        icon: 'http://gmaps-samples.googlecode.com/svn/trunk/markers/red/blank.png'
+        });
+        
+        marcador.setTitle(valor);
+  	  	attachSecretMessage(marcador);
+  	  
+  	    //Guardo el punto clicado
+  	    puntos.push(marcador);
+
     }
     
     

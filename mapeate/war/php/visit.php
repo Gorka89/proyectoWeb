@@ -59,7 +59,7 @@ if($_COOKIE['username']==''){
   			<p>VERDE: son tus sitios YA visitados </p>  				
 			
 			<p>Coordenada pulsada:</p>
-        	<form action="/coordenada" method="post" name="formulario">
+        	  <form action="/coordVisit" method="post" name="formulario">  -->
         	
 	            Latitud: <input type="text" id="latitud" name="latitud"/> 
 	            Longitud: <input type="text" id ="longitud" name="longitud"/><br/><br/>
@@ -69,7 +69,13 @@ if($_COOKIE['username']==''){
 	            
 	            <input type="reset" value="Limpiar" class="boton"/>           
             
-        	</form>    
+        	  </form>  
+        	
+        	<!--
+        	<form action="/jsp/coordenadas.jsp" method="post">
+        		<input type="submit" value="Guardar visitado" class="boton" />  
+        	</form> 
+        	-->
         	
 				<input type="submit" value="Borrar visitado" id="borrar" class="boton" />
 				

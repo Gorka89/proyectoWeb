@@ -17,6 +17,7 @@
 	
 	<link rel="stylesheet" type="text/css" href="css/estiloPrueba.css" />
 	<link rel="stylesheet" type="text/css" href="css/ajaxFont.css" />
+	<link rel="stylesheet" type="text/css" href="css/buttonCSS.css" />
 
 	
  
@@ -93,11 +94,11 @@ Con esta web podr&aacute;s tener el control de tu mundo.</p>
 	            Longitud: <input type="text" id ="longitud" name="longitud"/><br/><br/>
 	            Mensaje de la etiqueta VISITADO: <input type="text" id="texto" name="texto" />
 	            
-	            <input type="reset" value="Limpiar"/>           
+	            <input type="reset" value="Limpiar" class="boton"/>           
             
         	</form>    
         	
-				<input type="submit" value="Borrar &uacute;ltimo visitado" id="borrar" />  	
+				<input type="submit" value="Borrar &uacute;ltimo visitado" id="borrar" class="boton"/>  	
     	
 
    	   
@@ -163,7 +164,7 @@ Con esta web podr&aacute;s tener el control de tu mundo.</p>
                 <p>
 					<label> T&eacute;rminos de Privacidad</label>
 	
-		 			<input type="checkbox" name="acepto" value="Acepto" onclick="deshabilitar(this.form)" />
+		 			<label>Acepto</label> <input type="checkbox" name="acepto" value="Acepto" onclick="deshabilitar(this.form)" />
 	
 				</p>
                 
