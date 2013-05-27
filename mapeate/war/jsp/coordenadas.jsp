@@ -17,6 +17,9 @@
 <%     
 //jsp encargado de almacenar y crear la cookie de las coordenadas
 //para recuperarlas cuando el usuario desee
+//es la misma funcionalidad que los servlets encargados de la gestion de
+//coordenadas, por lo que se ha decidido no usar este jsp en la
+//version final, pero es igual de valido
 
 	try{
 
